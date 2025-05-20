@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
   <link rel="shortcut icon" type="image/png" href="https://cdn.discordapp.com/attachments/1254808562534973460/1371453675264016478/download-removebg-preview_1.png?ex=68233144&is=6821dfc4&hm=19271b2bbd22d98a92360aab3fe7e45ff9947504abb46424b04e83e357baad3d&">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Minecraft Commands</title>
   <style>
     :root {
@@ -16,6 +16,11 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+    }
+
+    /* مؤشر الماوس على شكل سيف دايموند */
+    body, .command-block, .sidebar-nav a {
+      cursor: url('https://i.imgur.com/Jb7P3FY.png'), auto;
     }
 
     body {
@@ -77,7 +82,7 @@
       transition: all 0.3s;
     }
 
-    .sidebar-nav a:hover, 
+    .sidebar-nav a:hover,
     .sidebar-nav a.active {
       background-color: var(--main-color);
       color: white;
@@ -151,6 +156,27 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 12px;
+      user-select: none;
+    }
+
+    /* زر المفضلة بجانب زر النسخ */
+    .fav-btn {
+      position: absolute;
+      right: 50px;
+      top: 10px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      color: #ccc;
+      user-select: none;
+      transition: color 0.3s;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .fav-btn.active {
+      color: gold;
     }
 
     .hero {
@@ -227,7 +253,7 @@
       justify-content: center;
       align-items: center;
     }
-    
+
     .rating-content {
       background-color: #333;
       padding: 30px;
@@ -237,29 +263,29 @@
       width: 90%;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
     }
-    
+
     .rating-content h3 {
       margin-bottom: 20px;
       color: var(--main-color);
     }
-    
+
     .stars {
       margin: 20px 0;
       font-size: 30px;
     }
-    
+
     .stars i {
       color: #555;
       cursor: pointer;
       transition: color 0.2s;
       margin: 0 5px;
     }
-    
+
     .stars i:hover,
     .stars i.active {
       color: gold;
     }
-    
+
     #closeRating {
       background-color: var(--main-color);
       color: white;
@@ -524,19 +550,19 @@
         z-index: 1000;
         transform: translateX(100%);
       }
-      
+
       .sidebar.active {
         transform: translateX(0);
       }
-      
+
       .close-sidebar {
         display: block;
       }
-      
+
       .main-content {
         margin-right: 0;
       }
-      
+
       .hero {
         padding-top: 80px;
       }
@@ -566,7 +592,10 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
 </head>
 <body>
   <div id="particles-js"></div>
@@ -584,11 +613,13 @@
         <a href="#" data-page="basic"><i class="fas fa-star"></i> <span data-translate="basic">أوامر أساسية</span></a>
         <a href="#" data-page="help"><i class="fas fa-question-circle"></i> <span data-translate="help">أوامر مساعدة</span></a>
         <a href="#" data-page="commandblock"><i class="fas fa-cube"></i> <span data-translate="commandblock">أوامر الكوماند بلوك</span></a>
+        <a href="#" data-page="favorites"><i class="fas fa-heart"></i> المفضلة</a>
       </nav>
     </div>
 
     <div class="main-content" id="mainContent">
-      <div class="page active" id="home">
+      <!-- صفحات الأوامر -->
+      <div class="page" id="home">
         <div class="hero">
           <button class="language-switcher" id="languageSwitcher">
             <span>English</span>
@@ -601,402 +632,467 @@
           <h1><i class="fas fa-cube"></i> <span data-translate="heroTitle">أوامر ماينكرافت الشاملة</span></h1>
           <p data-translate="heroSubtitle">أقوى وأحدث الأوامر للعبة ماينكرافت بمختلف إصداراتها</p>
         </div>
-        
+
         <div class="search-container">
-          <input type="text" class="search-box" id="searchBox" placeholder="ابحث عن أوامر ماينكرافت..." data-translate="searchPlaceholder">
+          <input
+            type="text"
+            class="search-box"
+            id="searchBox"
+            placeholder="ابحث عن أوامر ماينكرافت..."
+            data-translate="searchPlaceholder"
+          />
         </div>
-        
-        <h2><i class="fas fa-fire"></i> <span data-translate="welcomeTitle">مرحباً بك في موقع أوامر ماينكرافت</span></h2>
-        <p style="margin-bottom: 20px;" data-translate="welcomeText">استكشف مجموعتنا الشاملة من الأوامر المفيدة للعبة ماينكرافت. اختر قسمًا من القائمة الجانبية لبدء الاستكشاف.</p>
-      
+
+        <h2>
+          <i class="fas fa-fire"></i> <span data-translate="welcomeTitle">مرحباً بك في موقع أوامر ماينكرافت</span>
+        </h2>
+        <p style="margin-bottom: 20px;" data-translate="welcomeText">
+          استكشف مجموعتنا الشاملة من الأوامر المفيدة للعبة ماينكرافت. اختر قسمًا من القائمة الجانبية لبدء الاستكشاف.
+        </p>
+
         <!-- نظام التقييم الجديد -->
         <div class="rating-box">
           <h2 data-translate="rateTitle">قيّم هذه الصفحة</h2>
           <div class="stars-container" id="starRating">
-            <input type="radio" id="star5" name="rate" value="5">
+            <input type="radio" id="star5" name="rate" value="5" />
             <label for="star5">★</label>
-            <input type="radio" id="star4" name="rate" value="4">
+            <input type="radio" id="star4" name="rate" value="4" />
             <label for="star4">★</label>
-            <input type="radio" id="star3" name="rate" value="3">
+            <input type="radio" id="star3" name="rate" value="3" />
             <label for="star3">★</label>
-            <input type="radio" id="star2" name="rate" value="2">
+            <input type="radio" id="star2" name="rate" value="2" />
             <label for="star2">★</label>
-            <input type="radio" id="star1" name="rate" value="1">
+            <input type="radio" id="star1" name="rate" value="1" />
             <label for="star1">★</label>
           </div>
           <div class="rating-message" id="thankYou"></div>
           <div class="average-rating" id="avgRating"></div>
         </div>
       </div>
-      
+
       <!-- صفحة TNT -->
       <div class="page" id="tnt">
         <div class="search-container">
-          <input type="text" class="search-box" placeholder="ابحث في أوامر TNT..." data-translate="tntSearch">
+          <input type="text" class="search-box" placeholder="ابحث في أوامر TNT..." data-translate="tntSearch" />
         </div>
-        
+
         <h2><i class="fas fa-bomb"></i> <span data-translate="tntTitle">أوامر TNT</span></h2>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-fire"></i> <span data-translate="tntBasic">TNT أساسي</span>
+          <h3 class="tooltip">
+            <i class="fas fa-fire"></i> <span data-translate="tntBasic">TNT أساسي</span>
             <span class="tooltiptext" data-translate="tntBasicTooltip">هذا الأمر يعطيك كتلة TNT عادية يمكنك تفجيرها</span>
           </h3>
           <p data-translate="tntBasicDesc">إنشاء كتلة TNT عادية</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p tnt</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-radiation"></i> <span data-translate="tntInstant">TNT متفجر</span>
+          <h3 class="tooltip">
+            <i class="fas fa-radiation"></i> <span data-translate="tntInstant">TNT متفجر</span>
             <span class="tooltiptext" data-translate="tntInstantTooltip">TNT ينفجر فوراً عند وضعه بدون تأخير</span>
           </h3>
           <p data-translate="tntInstantDesc">إنشاء TNT ينفجر عند وضعه</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/summon tnt ~ ~ ~ {Fuse:0}</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-meteor"></i> <span data-translate="tntPowerful">TNT ضخم</span>
+          <h3 class="tooltip">
+            <i class="fas fa-meteor"></i> <span data-translate="tntPowerful">TNT ضخم</span>
             <span class="tooltiptext" data-translate="tntPowerfulTooltip">TNT بقوة انفجار كبيرة جداً يمكنها تدمير مساحة واسعة</span>
           </h3>
           <p data-translate="tntPowerfulDesc">إنشاء TNT بقوة انفجار كبيرة</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/summon tnt ~ ~ ~ {ExplosionPower:100}</code>
           </div>
         </div>
       </div>
-      
+
       <!-- صفحة أطوار اللعب -->
       <div class="page" id="gamemode">
         <div class="search-container">
-          <input type="text" class="search-box" placeholder="ابحث في أوامر أطوار اللعب..." data-translate="gamemodeSearch">
+          <input type="text" class="search-box" placeholder="ابحث في أوامر أطوار اللعب..." data-translate="gamemodeSearch" />
         </div>
-        
+
         <h2><i class="fas fa-gamepad"></i> <span data-translate="gamemodeTitle">أطوار اللعب</span></h2>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-paint-brush"></i> <span data-translate="creativeMode">طور الإبداعي</span>
+          <h3 class="tooltip">
+            <i class="fas fa-paint-brush"></i> <span data-translate="creativeMode">طور الإبداعي</span>
             <span class="tooltiptext" data-translate="creativeModeTooltip">يسمح لك بالطيران والحصول على جميع الكتل بدون حدود</span>
           </h3>
           <p data-translate="creativeModeDesc">الوصول إلى جميع الكتل والطيران</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/gamemode creative</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-heart"></i> <span data-translate="survivalMode">طور البقاء</span>
+          <h3 class="tooltip">
+            <i class="fas fa-heart"></i> <span data-translate="survivalMode">طور البقاء</span>
             <span class="tooltiptext" data-translate="survivalModeTooltip">الوضع الأساسي للعبة حيث تحتاج للطعام ويمكن أن تموت</span>
           </h3>
           <p data-translate="survivalModeDesc">الوضع الطبيعي للعبة مع الحاجة للطعام</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/gamemode survival</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-ghost"></i> <span data-translate="adventureMode">طور المغامرة</span>
+          <h3 class="tooltip">
+            <i class="fas fa-ghost"></i> <span data-translate="adventureMode">طور المغامرة</span>
             <span class="tooltiptext" data-translate="adventureModeTooltip">لا يمكنك كسر الكتل إلا باستخدام الأدوات المناسبة</span>
           </h3>
           <p data-translate="adventureModeDesc">لا يمكن كسر الكتل إلا بالأدوات المناسبة</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/gamemode adventure</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-eye"></i> <span data-translate="spectatorMode">طور المشاهد</span>
-            <span class="tooltiptext" data-translate="spectatorModeTooltip">يمكنك الطيران عبر الكتل ومشاهدة اللعبة دون التفاعل معها</span>
+          <h3 class="tooltip">
+            <i class="fas fa-eye"></i> <span data-translate="spectatorMode">طور المشاهد</span>
+            <span data-translate="spectatorModeTooltip">يمكنك الطيران عبر الكتل ومشاهدة اللعبة دون التفاعل معها</span>
           </h3>
           <p data-translate="spectatorModeDesc">التجول دون التفاعل مع العالم</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/gamemode spectator</code>
           </div>
         </div>
       </div>
-      
+
       <!-- صفحة الأدوات -->
       <div class="page" id="tools">
         <div class="search-container">
-          <input type="text" class="search-box" placeholder="ابحث في أوامر الأدوات..." data-translate="toolsSearch">
+          <input type="text" class="search-box" placeholder="ابحث في أوامر الأدوات..." data-translate="toolsSearch" />
         </div>
-        
+
         <h2><i class="fas fa-tools"></i> <span data-translate="toolsTitle">الأدوات المحسنة</span></h2>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-gem"></i> <span data-translate="diamondSword">سيف دايموند</span>
+          <h3 class="tooltip">
+            <i class="fas fa-gem"></i> <span data-translate="diamondSword">سيف دايموند</span>
             <span class="tooltiptext" data-translate="diamondSwordTooltip">سيف قوي مع تعويذات حادة 5 وإشعال نار 2 وصد 2</span>
           </h3>
           <p data-translate="diamondSwordDesc">سيف قوي مع إنشانتات متقدمة</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p diamond_sword{Enchantments:[{id:sharpness,lvl:5},{id:fire_aspect,lvl:2},{id:knockback,lvl:2}]}</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-hammer"></i> <span data-translate="netheritePickaxe">فأس نيثيرايت</span>
-            <span class="tooltiptext" data-translate="netheritePickaxeTooltip">فأس مع تعويذات كفاءة 10 ومتانة 3 وإصلاح 1</span>
+          <h3 class="tooltip">
+            <i class="fas fa-hammer"></i> <span data-translate="netheritePickaxe">فأس نيثيرايت</span>
+            <span data-translate="netheritePickaxeTooltip">فأس مع تعويذات كفاءة 10 ومتانة 3 وإصلاح 1</span>
           </h3>
           <p data-translate="netheritePickaxeDesc">فأس سريع جداً مع متانة عالية</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p netherite_pickaxe{Enchantments:[{id:efficiency,lvl:10},{id:unbreaking,lvl:3},{id:mending,lvl:1}]}</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-shield-alt"></i> <span data-translate="netheriteArmor">درع كامل</span>
-            <span class="tooltiptext" data-translate="netheriteArmorTooltip">درع صدر مع تعويذات حماية 4 ومتانة 3 وإصلاح 1</span>
+          <h3 class="tooltip">
+            <i class="fas fa-shield-alt"></i> <span data-translate="netheriteArmor">درع كامل</span>
+            <span data-translate="netheriteArmorTooltip">درع صدر مع تعويذات حماية 4 ومتانة 3 وإصلاح 1</span>
           </h3>
           <p data-translate="netheriteArmorDesc">درع نيثيرايت كامل مع إنشانتات</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p netherite_chestplate{Enchantments:[{id:protection,lvl:4},{id:unbreaking,lvl:3},{id:mending,lvl:1}]}</code>
           </div>
         </div>
       </div>
-      
+
       <!-- صفحة الأوامر الأساسية -->
       <div class="page" id="basic">
         <div class="search-container">
-          <input type="text" class="search-box" placeholder="ابحث في الأوامر الأساسية..." data-translate="basicSearch">
+          <input type="text" class="search-box" placeholder="ابحث في الأوامر الأساسية..." data-translate="basicSearch" />
         </div>
-        
+
         <h2><i class="fas fa-star"></i> <span data-translate="basicTitle">الأوامر الأساسية</span></h2>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-clock"></i> <span data-translate="timeCommand">تغيير الوقت</span>
+          <h3 class="tooltip">
+            <i class="fas fa-clock"></i> <span data-translate="timeCommand">تغيير الوقت</span>
             <span class="tooltiptext" data-translate="timeCommandTooltip">يغير وقت اليوم إلى النهار (يمكن استبدال day بـ night أو noon)</span>
           </h3>
           <p data-translate="timeCommandDesc">تغيير وقت اليوم في اللعبة</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/time set day</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-cloud-sun"></i> <span data-translate="weatherCommand">تغيير الطقس</span>
+          <h3 class="tooltip">
+            <i class="fas fa-cloud-sun"></i> <span data-translate="weatherCommand">تغيير الطقس</span>
             <span class="tooltiptext" data-translate="weatherCommandTooltip">يغير الطقس إلى صافي (يمكن استبدال clear بـ rain أو thunder)</span>
           </h3>
           <p data-translate="weatherCommandDesc">تغيير حالة الطقس في اللعبة</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/weather clear</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-heart"></i> <span data-translate="healCommand">تعبئة الصحة</span>
+          <h3 class="tooltip">
+            <i class="fas fa-heart"></i> <span data-translate="healCommand">تعبئة الصحة</span>
             <span class="tooltiptext" data-translate="healCommandTooltip">يمنحك تأثير الشبع الذي يعيد الصحة والجوع فوراً</span>
           </h3>
           <p data-translate="healCommandDesc">استعادة كامل الصحة والجوع</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/effect give @p minecraft:saturation 1 255</code>
           </div>
         </div>
       </div>
-      
+
       <!-- صفحة أوامر المساعدة -->
       <div class="page" id="help">
         <div class="search-container">
-          <input type="text" class="search-box" placeholder="ابحث في أوامر المساعدة..." data-translate="helpSearch">
+          <input type="text" class="search-box" placeholder="ابحث في أوامر المساعدة..." data-translate="helpSearch" />
         </div>
-        
+
         <h2><i class="fas fa-question-circle"></i> <span data-translate="helpTitle">أوامر المساعدة</span></h2>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-map"></i> <span data-translate="mapCommand">الحصول على خريطة</span>
+          <h3 class="tooltip">
+            <i class="fas fa-map"></i> <span data-translate="mapCommand">الحصول على خريطة</span>
             <span class="tooltiptext" data-translate="mapCommandTooltip">يعطيك خريطة فارغة يمكنك ملؤها باستكشاف المنطقة</span>
           </h3>
           <p data-translate="mapCommandDesc">إنشاء خريطة للمنطقة الحالية</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p filled_map</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-compass"></i> <span data-translate="biomeCommand">العثور على البايوم</span>
+          <h3 class="tooltip">
+            <i class="fas fa-compass"></i> <span data-translate="biomeCommand">العثور على البايوم</span>
             <span class="tooltiptext" data-translate="biomeCommandTooltip">يحدد موقع أقرب سهول (يمكن استبدال plains بأي بايوم آخر)</span>
           </h3>
           <p data-translate="biomeCommandDesc">تحديد موقع أقرب بايوم</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/locatebiome minecraft:plains</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-home"></i> <span data-translate="spawnpointCommand">العودة للنقطة الأساسية</span>
+          <h3 class="tooltip">
+            <i class="fas fa-home"></i> <span data-translate="spawnpointCommand">العودة للنقطة الأساسية</span>
             <span class="tooltiptext" data-translate="spawnpointTooltip">يحدد نقطة العودة عند الموت في موقعك الحالي</span>
           </h3>
           <p data-translate="spawnpointCommandDesc">تعيين موقع العودة عند الموت</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/spawnpoint</code>
           </div>
         </div>
       </div>
-      
+
       <!-- صفحة أوامر الكوماند بلوك -->
       <div class="page" id="commandblock">
         <div class="search-container">
-          <input type="text" class="search-box" placeholder="ابحث في أوامر الكوماند بلوك..." data-translate="commandblockSearch">
+          <input type="text" class="search-box" placeholder="ابحث في أوامر الكوماند بلوك..." data-translate="commandblockSearch" />
         </div>
-        
+
         <h2><i class="fas fa-cube"></i> <span data-translate="commandblockTitle">أوامر الكوماند بلوك</span></h2>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-redo"></i> <span data-translate="repeatCommand">تكرار الأوامر</span>
+          <h3 class="tooltip">
+            <i class="fas fa-redo"></i> <span data-translate="repeatCommand">تكرار الأوامر</span>
             <span class="tooltiptext" data-translate="repeatCommandTooltip">ينفذ الأمر المحدد كل تيك (0.05 ثانية) تلقائياً</span>
           </h3>
           <p data-translate="repeatCommandDesc">إنشاء كوماند بلوك متكرر</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p command_block{BlockEntityTag:{auto:1b,Command:"say Hello"}}</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-bolt"></i> <span data-translate="chainCommand">تشغيل سلسلة أوامر</span>
+          <h3 class="tooltip">
+            <i class="fas fa-bolt"></i> <span data-translate="chainCommand">تشغيل سلسلة أوامر</span>
             <span class="tooltiptext" data-translate="chainCommandTooltip">ينفذ الأمر فقط عندما يتم تفعيله من قبل كوماند بلوك آخر</span>
           </h3>
           <p data-translate="chainCommandDesc">إنشاء كوماند بلوك متسلسل</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p chain_command_block{BlockEntityTag:{auto:1b,Command:"say Chain Command"}}</code>
           </div>
         </div>
-        
+
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-random"></i> <span data-translate="conditionalCommand">تشغيل أوامر شرطية</span>
+          <h3 class="tooltip">
+            <i class="fas fa-random"></i> <span data-translate="conditionalCommand">تشغيل أوامر شرطية</span>
             <span class="tooltiptext" data-translate="conditionalCommandTooltip">ينفذ الأمر فقط إذا نجح الكوماند بلوك السابق في السلسلة</span>
           </h3>
           <p data-translate="conditionalCommandDesc">إنشاء كوماند بلوك شرطي</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p repeating_command_block{BlockEntityTag:{auto:1b,Conditional:1b,Command:"say Conditional"}}</code>
           </div>
         </div>
 
         <!-- الأوامر الإضافية للكوماند بلوك -->
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-clock"></i> مؤقت متكرر
+          <h3 class="tooltip">
+            <i class="fas fa-clock"></i> مؤقت متكرر
             <span class="tooltiptext">ينفذ الأمر "say Timer" كل ثانية بشكل متكرر</span>
           </h3>
           <p>تنفيذ أمر كل ثانية</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @p repeating_command_block{BlockEntityTag:{Command:"say Timer"}}</code>
           </div>
         </div>
 
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-users"></i> تيليفورت للجميع
+          <h3 class="tooltip">
+            <i class="fas fa-users"></i> تيليفورت للجميع
             <span class="tooltiptext">ينقل جميع اللاعبين إلى موقعك الحالي</span>
           </h3>
           <p>نقل جميع اللاعبين إلى موقعك</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/tp @a @p</code>
           </div>
         </div>
 
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-fire"></i> إشعال النار
+          <h3 class="tooltip">
+            <i class="fas fa-fire"></i> إشعال النار
             <span class="tooltiptext">ينشئ كتلة نار تحت كل لاعب</span>
           </h3>
           <p>إنشاء كتلة نار عند جميع اللاعبين</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/execute as @a at @s run setblock ~ ~ ~ fire</code>
           </div>
         </div>
 
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-cloud"></i> طقس ممطر دائم
+          <h3 class="tooltip">
+            <i class="fas fa-cloud"></i> طقس ممطر دائم
             <span class="tooltiptext">يغير الطقس إلى ممطر ويبقيه كذلك حتى تغييره</span>
           </h3>
           <p>جعل الطقس ممطراً باستمرار</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/weather rain</code>
           </div>
         </div>
 
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-moon"></i> وقت ليل دائم
+          <h3 class="tooltip">
+            <i class="fas fa-moon"></i> وقت ليل دائم
             <span class="tooltiptext">يوقف دورة الوقت عند الليل</span>
           </h3>
           <p>جعل الوقت ليلاً دائماً</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/time set night</code>
           </div>
         </div>
 
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-gem"></i> منح دايموند للجميع
+          <h3 class="tooltip">
+            <i class="fas fa-gem"></i> منح دايموند للجميع
             <span class="tooltiptext">يعطي كل اللاعبين 64 قطعة دايموند</span>
           </h3>
           <p>إعطاء كل اللاعبين 64 دايموند</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/give @a diamond 64</code>
           </div>
         </div>
 
-        <!-- يمكنك إضافة المزيد من الأوامر بنفس النمط -->
-        <!-- ... -->
-        
-        <!-- هنا سأضيف 194 أمر آخر بنفس الطريقة -->
-        <!-- مثال على بعض الأوامر الإضافية -->
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-bolt"></i> صاعقة لكل لاعب
+          <h3 class="tooltip">
+            <i class="fas fa-bolt"></i> صاعقة لكل لاعب
             <span class="tooltiptext">يصيب كل لاعب بصاعقة في موقعه</span>
           </h3>
           <p>إصابعة صاعقة لكل لاعب</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/execute as @a run summon lightning_bolt</code>
           </div>
         </div>
 
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-running"></i> سرعة عالية
+          <h3 class="tooltip">
+            <i class="fas fa-running"></i> سرعة عالية
             <span class="tooltiptext">يمنح كل اللاعبين سرعة عالية لمدة 60 ثانية</span>
           </h3>
           <p>منح سرعة عالية للجميع</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/effect give @a speed 60 5</code>
           </div>
         </div>
 
         <div class="command-block">
-          <h3 class="tooltip"><i class="fas fa-shield-alt"></i> مناعة من الضرر
+          <h3 class="tooltip">
+            <i class="fas fa-shield-alt"></i> مناعة من الضرر
             <span class="tooltiptext">يمنح كل اللاعبين مناعة كاملة من الضرر لمدة 60 ثانية</span>
           </h3>
           <p>منح مناعة من الضرر للجميع</p>
           <div class="command-code">
             <button class="copy-btn" data-translate="copy">نسخ</button>
+            <button class="fav-btn" title="إضافة للمفضلة">♡</button>
             <code>/effect give @a resistance 60 255</code>
           </div>
         </div>
+      </div>
 
-        <!-- يمكنك متابعة إضافة الأوامر بنفس الطريقة حتى تصل إلى 200 أمر -->
+      <!-- صفحة المفضلة -->
+      <div class="page" id="favorites">
+        <h2><i class="fas fa-heart"></i> المفضلة</h2>
+        <div id="favoritesList"></div>
       </div>
     </div>
   </div>
@@ -1024,7 +1120,7 @@
     </div>
     <div class="chatbot-messages" id="chatbotMessages"></div>
     <div class="chatbot-input">
-      <input type="text" id="chatbotInput" placeholder="اكتب سؤالك..." data-translate="chatbotPlaceholder">
+      <input type="text" id="chatbotInput" placeholder="اكتب سؤالك..." data-translate="chatbotPlaceholder" />
       <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
@@ -1127,7 +1223,7 @@
         chatbotPlaceholder: "اكتب سؤالك...",
         thankYou: "شكرًا لك على التقييم!",
         noRating: "لم يتم تقييم هذه الصفحة بعد.",
-        averageRating: "متوسط التقييم: {average} من 5 ({count} تقييم)"
+        averageRating: "متوسط التقييم: {average} من 5 ({count} تقييم)",
       },
       en: {
         title: "Minecraft Commands",
@@ -1171,358 +1267,330 @@
         toolsTitle: "Enhanced Tools",
         toolsSearch: "Search tools commands...",
         diamondSword: "Diamond Sword",
-        diamondSwordDesc: "Powerful sword with advanced enchantments",
-        diamondSwordTooltip: "Strong sword with Sharpness 5, Fire Aspect 2 and Knockback 2",
+        diamondSwordDesc: "Strong sword with advanced enchantments",
+        diamondSwordTooltip: "A strong sword with Sharpness 5, Fire Aspect 2, Knockback 2",
         netheritePickaxe: "Netherite Pickaxe",
         netheritePickaxeDesc: "Very fast pickaxe with high durability",
-        netheritePickaxeTooltip: "Pickaxe with Efficiency 10, Unbreaking 3 and Mending 1",
+        netheritePickaxeTooltip: "Pickaxe with Efficiency 10, Unbreaking 3, Mending 1",
         netheriteArmor: "Full Armor",
-        netheriteArmorDesc: "Full netherite armor with enchantments",
-        netheriteArmorTooltip: "Chestplate with Protection 4, Unbreaking 3 and Mending 1",
+        netheriteArmorDesc: "Full Netherite armor with enchantments",
+        netheriteArmorTooltip: "Chestplate with Protection 4, Unbreaking 3, Mending 1",
         basicTitle: "Basic Commands",
         basicSearch: "Search basic commands...",
         timeCommand: "Change Time",
-        timeCommandDesc: "Change time of day in the game",
-        timeCommandTooltip: "Changes time of day to day (you can replace day with night or noon)",
+        timeCommandDesc: "Change the game time",
+        timeCommandTooltip: "Sets the day time (you can replace day with night or noon)",
         weatherCommand: "Change Weather",
-        weatherCommandDesc: "Change weather conditions",
-        weatherCommandTooltip: "Changes weather to clear (you can replace clear with rain or thunder)",
-        healCommand: "Restore Health",
+        weatherCommandDesc: "Change the weather",
+        weatherCommandTooltip: "Sets clear weather (you can replace clear with rain or thunder)",
+        healCommand: "Heal",
         healCommandDesc: "Restore full health and hunger",
-        healCommandTooltip: "Gives you saturation effect that restores health and hunger immediately",
+        healCommandTooltip: "Gives saturation effect which instantly refills health and hunger",
         helpTitle: "Help Commands",
         helpSearch: "Search help commands...",
         mapCommand: "Get Map",
-        mapCommandDesc: "Create map of current area",
-        mapCommandTooltip: "Gives you an empty map that can be filled by exploring",
-        biomeCommand: "Find Biome",
-        biomeCommandDesc: "Locate nearest biome",
-        biomeCommandTooltip: "Locates nearest plains biome (you can replace plains with any other biome)",
+        mapCommandDesc: "Create a map of current area",
+        mapCommandTooltip: "Gives you an empty map you can fill by exploring",
+        biomeCommand: "Locate Biome",
+        biomeCommandDesc: "Find nearest biome",
+        biomeCommandTooltip: "Locates nearest plains biome (replace plains with any other biome)",
         spawnpointCommand: "Set Spawn Point",
-        spawnpointCommandDesc: "Set respawn location when dying",
-        spawnpointTooltip: "Sets your respawn point at your current location",
+        spawnpointCommandDesc: "Set spawn point at your current location",
+        spawnpointTooltip: "Sets your respawn point when you die",
         commandblockTitle: "Command Block Commands",
         commandblockSearch: "Search command block commands...",
         repeatCommand: "Repeat Commands",
         repeatCommandDesc: "Create repeating command block",
-        repeatCommandTooltip: "Executes the specified command every tick (0.05 seconds) automatically",
+        repeatCommandTooltip: "Executes the command every tick (0.05 seconds) automatically",
         chainCommand: "Chain Commands",
         chainCommandDesc: "Create chain command block",
-        chainCommandTooltip: "Executes the command only when activated by another command block",
+        chainCommandTooltip: "Executes command only when activated by another command block",
         conditionalCommand: "Conditional Commands",
         conditionalCommandDesc: "Create conditional command block",
-        conditionalCommandTooltip: "Executes the command only if the previous command block in the chain succeeded",
-        rateTitle: "How would you rate this site?",
+        conditionalCommandTooltip: "Executes command only if the previous command block in chain succeeds",
+        rateTitle: "Rate this site",
         close: "Close",
         darkMode: "Dark Mode",
         lightMode: "Light Mode",
-        chatbotTitle: "Commands Assistant",
+        chatbotTitle: "Command Assistant",
         chatbotPlaceholder: "Type your question...",
         thankYou: "Thank you for your rating!",
         noRating: "This page has not been rated yet.",
-        averageRating: "Average rating: {average} out of 5 ({count} ratings)"
+        averageRating: "Average rating: {average} out of 5 ({count} ratings)",
       }
     };
 
-    // دالة لتحديث النصوص حسب اللغة
-    function updateLanguage(lang) {
-      // تحديث سمة اللغة والاتجاه
-      document.documentElement.setAttribute('lang', lang);
-      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-      
-      // تحديث جميع العناصر التي تحتوي على data-translate
-      document.querySelectorAll('[data-translate]').forEach(element => {
-        const key = element.getAttribute('data-translate');
-        if (translations[lang][key]) {
-          if (element.tagName === 'INPUT' && element.getAttribute('type') === 'text') {
-            element.setAttribute('placeholder', translations[lang][key]);
-          } else {
-            element.textContent = translations[lang][key];
-          }
+    let currentLang = "ar";
+
+    function translatePage() {
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        if (translations[currentLang][key]) {
+          el.textContent = translations[currentLang][key];
         }
       });
-      
-      // تحديث نص زر تبديل اللغة
-      document.getElementById('languageSwitcher').querySelector('span').textContent = 
-        lang === 'ar' ? 'English' : 'العربية';
-      
-      // تحديث متوسط التقييم عند تغيير اللغة
-      loadAverage();
+      // placeholder translations for inputs
+      document.querySelectorAll("input[data-translate]").forEach(input => {
+        const key = input.getAttribute("data-translate");
+        if (translations[currentLang][key]) {
+          input.placeholder = translations[currentLang][key];
+        }
+      });
+      // toggle language switcher text
+      const langSwitcher = document.getElementById("languageSwitcher");
+      if (currentLang === "ar") {
+        langSwitcher.querySelector("span").textContent = "English";
+      } else {
+        langSwitcher.querySelector("span").textContent = "العربية";
+      }
     }
 
-    // تبديل اللغة بين العربية والإنجليزية
-    document.getElementById('languageSwitcher').addEventListener('click', function() {
-      const currentLang = document.documentElement.getAttribute('lang');
-      const newLang = currentLang === 'ar' ? 'en' : 'ar';
-      updateLanguage(newLang);
+    // تبديل اللغة
+    document.getElementById("languageSwitcher").addEventListener("click", () => {
+      currentLang = currentLang === "ar" ? "en" : "ar";
+      translatePage();
     });
 
-    // تهيئة اللغة عند التحميل
-    document.addEventListener('DOMContentLoaded', function() {
-      updateLanguage('ar');
-      
-      // إظهار الصفحة الرئيسية عند التحميل
-      document.getElementById('home').classList.add('active');
-
-      // تهيئة نظام التقييم الجديد
-      initRatingSystem();
-
-      // تهيئة particles.js
-      particlesJS('particles-js', {
-        particles: {
-          number: { value: 80, density: { enable: true, value_area: 800 } },
-          color: { value: "#2ecc71" },
-          shape: { type: "circle" },
-          opacity: { value: 0.5, random: true },
-          size: { value: 3, random: true },
-          line_linked: { enable: true, distance: 150, color: "#2ecc71", opacity: 0.4, width: 1 },
-          move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: { enable: true, mode: "repulse" },
-            onclick: { enable: true, mode: "push" }
-          }
-        }
-      });
-
-      // إظهار مربع التقييم عند أول زيارة
-      if (!localStorage.getItem('hasVisited')) {
-        setTimeout(function() {
-          document.getElementById('ratingModal').style.display = 'flex';
-          localStorage.setItem('hasVisited', 'true');
-        }, 10000); // إظهار بعد 10 ثواني
+    // تبديل الوضع الليلي / النهاري
+    const themeSwitcher = document.getElementById("themeSwitcher");
+    themeSwitcher.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      if (document.body.classList.contains("light-mode")) {
+        themeSwitcher.innerHTML = '<i class="fas fa-sun"></i> <span>الوضع النهاري</span>';
+      } else {
+        themeSwitcher.innerHTML = '<i class="fas fa-moon"></i> <span>الوضع الليلي</span>';
       }
     });
 
-    // تبديل الصفحات
+    // محرك الجسيمات (Particles.js)
+    particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json', function() {
+      console.log('particles.js loaded...');
+    });
+
+    // وظيفة نسخ الأمر
+    function copyCommand(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = currentLang === "ar" ? "تم النسخ!" : "Copied!";
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 2000);
+      });
+    }
+
+    // تهيئة أزرار النسخ والمفضلة
+    function initButtons() {
+      document.querySelectorAll(".command-code").forEach(block => {
+        const copyBtn = block.querySelector(".copy-btn");
+        const favBtn = block.querySelector(".fav-btn");
+        const code = block.querySelector("code").textContent.trim();
+
+        if (copyBtn) {
+          copyBtn.onclick = () => copyCommand(code, copyBtn);
+        }
+      });
+      initFavoriteButtons();
+    }
+
+    // نظام المفضلات
+    function loadFavorites() {
+      return JSON.parse(localStorage.getItem('favorites') || '[]');
+    }
+    function saveFavorites(favorites) {
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+    function initFavoriteButtons() {
+      const favorites = loadFavorites();
+      document.querySelectorAll('.command-code').forEach(block => {
+        const code = block.querySelector('code').textContent.trim();
+        const favBtn = block.querySelector('.fav-btn');
+        if (!favBtn) return;
+
+        if (favorites.includes(code)) {
+          favBtn.classList.add('active');
+          favBtn.textContent = '♥';
+        } else {
+          favBtn.classList.remove('active');
+          favBtn.textContent = '♡';
+        }
+
+        favBtn.onclick = () => {
+          const idx = favorites.indexOf(code);
+          if (idx === -1) {
+            favorites.push(code);
+            favBtn.classList.add('active');
+            favBtn.textContent = '♥';
+          } else {
+            favorites.splice(idx, 1);
+            favBtn.classList.remove('active');
+            favBtn.textContent = '♡';
+          }
+          saveFavorites(favorites);
+          if (location.hash === '#favorites') renderFavoritesPage();
+        };
+      });
+    }
+
+    // عرض صفحة المفضلة
+    function renderFavoritesPage() {
+      const favorites = loadFavorites();
+      const favoritesList = document.getElementById('favoritesList');
+      favoritesList.innerHTML = '';
+      if (favorites.length === 0) {
+        favoritesList.innerHTML = `<p>${currentLang === 'ar' ? 'لا توجد أوامر مفضلة حالياً.' : 'No favorite commands yet.'}</p>`;
+        return;
+      }
+
+      favorites.forEach(command => {
+        const div = document.createElement('div');
+        div.className = 'command-block';
+        div.innerHTML = `
+          <div class="command-code" style="position: relative;">
+            <button class="copy-btn">${currentLang === 'ar' ? 'نسخ' : 'Copy'}</button>
+            <button class="fav-btn active" title="${currentLang === 'ar' ? 'إزالة من المفضلة' : 'Remove from favorites'}">♥</button>
+            <code>${command}</code>
+          </div>
+        `;
+
+        // نسخ
+        div.querySelector('.copy-btn').onclick = () => {
+          navigator.clipboard.writeText(command);
+          const btn = div.querySelector('.copy-btn');
+          btn.textContent = currentLang === 'ar' ? 'تم النسخ!' : 'Copied!';
+          setTimeout(() => btn.textContent = currentLang === 'ar' ? 'نسخ' : 'Copy', 2000);
+        };
+
+        // إزالة من المفضلة
+        div.querySelector('.fav-btn').onclick = () => {
+          let favs = loadFavorites();
+          favs = favs.filter(c => c !== command);
+          saveFavorites(favs);
+          renderFavoritesPage();
+          initFavoriteButtons();
+        };
+
+        favoritesList.appendChild(div);
+      });
+    }
+
+    // التنقل بين الصفحات وتحديث URL
+    function setPage(pageId) {
+      document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+      const activeLink = document.querySelector(`.sidebar-nav a[data-page="${pageId}"]`);
+      if (activeLink) activeLink.classList.add('active');
+
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+      const activePage = document.getElementById(pageId);
+      if (activePage) activePage.classList.add('active');
+
+      if (pageId === 'favorites') renderFavoritesPage();
+
+      history.pushState(null, '', `#${pageId}`);
+
+      initButtons();
+    }
+
     document.querySelectorAll('.sidebar-nav a').forEach(link => {
-      link.addEventListener('click', function(e) {
+      link.addEventListener('click', e => {
         e.preventDefault();
-        
-        document.querySelectorAll('.sidebar-nav a').forEach(a => {
-          a.classList.remove('active');
-        });
-        
-        this.classList.add('active');
-        
-        document.querySelectorAll('.page').forEach(page => {
-          page.classList.remove('active');
-        });
-        
-        const pageId = this.getAttribute('data-page');
-        document.getElementById(pageId).classList.add('active');
-        
+        const pageId = link.getAttribute('data-page');
+        setPage(pageId);
         if (window.innerWidth <= 768) {
           document.getElementById('sidebar').classList.remove('active');
         }
       });
     });
-    
-    // نسخ الأوامر
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const code = this.nextElementSibling.textContent;
-        navigator.clipboard.writeText(code.trim());
-        
-        const originalText = this.textContent;
-        this.textContent = document.documentElement.getAttribute('lang') === 'ar' ? 'تم النسخ!' : 'Copied!';
-        
-        setTimeout(() => {
-          this.textContent = originalText;
-        }, 2000);
-      });
-    });
-    
-    // وظيفة البحث
-    document.querySelectorAll('.search-box').forEach(box => {
-      box.addEventListener('keyup', function() {
-        const searchTerm = this.value.toLowerCase();
-        const currentPage = this.closest('.page');
 
-        currentPage.querySelectorAll('.command-block').forEach(block => {
-          const commandText = block.textContent.toLowerCase();
-          block.style.display = commandText.includes(searchTerm) ? 'block' : 'none';
-        });
-      });
+    // تحميل الصفحة حسب الـ URL
+    window.addEventListener('DOMContentLoaded', () => {
+      let hash = location.hash.replace('#', '');
+      if (!hash) hash = 'home';
+      setPage(hash);
+      translatePage();
     });
-    
-    // إخفاء القائمة عند النقر خارجها (للجوال)
-    document.addEventListener('click', function(e) {
-      const sidebar = document.getElementById('sidebar');
-      const closeSidebar = document.getElementById('closeSidebar');
-      
-      if (window.innerWidth <= 768 && !sidebar.contains(e.target)) {
-        sidebar.classList.remove('active');
-      }
+
+    window.addEventListener('popstate', () => {
+      let hash = location.hash.replace('#', '');
+      if (!hash) hash = 'home';
+      setPage(hash);
     });
-    
-    // إغلاق القائمة الجانبية في الجوال
-    document.getElementById('closeSidebar').addEventListener('click', function() {
+
+    // زر إغلاق القائمة في الهواتف
+    document.getElementById('closeSidebar').addEventListener('click', () => {
       document.getElementById('sidebar').classList.remove('active');
     });
 
-    // تقييم بالنجوم (النظام القديم)
-    document.querySelectorAll('.stars i').forEach(star => {
-      star.addEventListener('click', function() {
-        const rating = this.getAttribute('data-rating');
-        document.querySelectorAll('.stars i').forEach(s => {
-          if (s.getAttribute('data-rating') <= rating) {
-            s.classList.add('active');
+    // البحث داخل الأوامر (يعمل داخل كل صفحة)
+    document.querySelectorAll('.search-box').forEach(input => {
+      input.addEventListener('input', () => {
+        const searchTerm = input.value.toLowerCase();
+        const page = input.closest('.page');
+        if (!page) return;
+        page.querySelectorAll('.command-block').forEach(block => {
+          const text = block.textContent.toLowerCase();
+          if (text.includes(searchTerm)) {
+            block.style.display = '';
           } else {
-            s.classList.remove('active');
+            block.style.display = 'none';
           }
         });
-        
-        // هنا يمكنك إرسال التقييم إلى الخادم أو حفظه محلياً
-        localStorage.setItem('userRating', rating);
-        
-        // إخفاء بعد التقييم
-        setTimeout(() => {
-          document.getElementById('ratingModal').style.display = 'none';
-        }, 1000);
       });
     });
 
-    // إغلاق مربع التقييم (النظام القديم)
-    document.getElementById('closeRating').addEventListener('click', function() {
-      document.getElementById('ratingModal').style.display = 'none';
+    // دردشة البوت (مبسطة جداً)
+    const chatbotToggle = document.getElementById('chatbotToggle');
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const chatbotClose = document.getElementById('closeChatbot');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+    const chatbotInput = document.getElementById('chatbotInput');
+    const sendMessageBtn = document.getElementById('sendMessage');
+
+    chatbotToggle.addEventListener('click', () => {
+      chatbotContainer.classList.toggle('active');
+      chatbotInput.focus();
     });
 
-    // تبديل الوضع الليلي/النهاري
-    document.getElementById('themeSwitcher').addEventListener('click', function() {
-      document.body.classList.toggle('light-mode');
-      const isLight = document.body.classList.contains('light-mode');
-      this.querySelector('i').className = isLight ? 'fas fa-sun' : 'fas fa-moon';
-      const lang = document.documentElement.getAttribute('lang');
-      this.querySelector('span').textContent = translations[lang][isLight ? 'lightMode' : 'darkMode'];
+    chatbotClose.addEventListener('click', () => {
+      chatbotContainer.classList.remove('active');
     });
 
-    // دردشة البوت
-    const chatbotResponses = {
-      "hello": {
-        ar: "مرحباً! كيف يمكنني مساعدتك في أوامر ماينكرافت اليوم؟",
-        en: "Hello! How can I help you with Minecraft commands today?"
-      },
-      "gamemode": {
-        ar: "أوامر أطوار اللعب تسمح لك بتغيير طريقة اللعب. /gamemode creative للوضع الإبداعي، /gamemode survival للوضع البقاء.",
-        en: "Game mode commands let you change how you play. /gamemode creative for creative mode, /gamemode survival for survival mode."
-      },
-      "tnt": {
-        ar: "أوامر TNT تتيح لك إنشاء متفجرات. /give @p tnt لإنشاء TNT عادي، /summon tnt ~ ~ ~ {Fuse:0} لإنشاء TNT ينفجر فوراً.",
-        en: "TNT commands let you create explosives. /give @p tnt for normal TNT, /summon tnt ~ ~ ~ {Fuse:0} for instant TNT."
-      },
-      "help": {
-        ar: "يمكنك البحث في الأقسام المختلفة مثل الأدوات، أطوار اللعب، أوامر المساعدة وغيرها. ما الذي تريد معرفته بالضبط؟",
-        en: "You can browse different sections like Tools, Game Modes, Help Commands etc. What exactly do you want to know?"
-      },
-      "command": {
-        ar: "للعثور على أوامر محددة، يمكنك استخدام مربع البحث في كل صفحة أو تصفح الأقسام المختلفة.",
-        en: "To find specific commands, you can use the search box on each page or browse different sections."
-      }
-    };
+    function addChatMessage(text, sender = 'bot') {
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message');
+      msgDiv.classList.add(sender === 'user' ? 'user-message' : 'bot-message');
+      msgDiv.textContent = text;
+      chatbotMessages.appendChild(msgDiv);
+      chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    }
 
-    document.getElementById('chatbotToggle').addEventListener('click', function() {
-      document.getElementById('chatbotContainer').classList.toggle('active');
-    });
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+      if (input.includes('tnt')) return 'استخدم صفحة TNT لاستكشاف أوامر TNT.';
+      if (input.includes('gamemode') || input.includes('طور')) return 'يمكنك العثور على أوامر أطوار اللعب في صفحة "أطوار اللعب".';
+      if (input.includes('copy') || input.includes('نسخ')) return 'اضغط على زر النسخ لنسخ الأمر.';
+      return 'عذراً، لم أفهم سؤالك. حاول استخدام كلمات أخرى.';
+    }
 
-    document.getElementById('closeChatbot').addEventListener('click', function() {
-      document.getElementById('chatbotContainer').classList.remove('active');
-    });
-
-    document.getElementById('sendMessage').addEventListener('click', sendMessage);
-    document.getElementById('chatbotInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') sendMessage();
-    });
-
-    function sendMessage() {
-      const input = document.getElementById('chatbotInput');
-      const message = input.value.trim().toLowerCase();
-      if (!message) return;
-
-      const messagesContainer = document.getElementById('chatbotMessages');
-      const lang = document.documentElement.getAttribute('lang');
-      
-      // إضافة رسالة المستخدم
-      const userMessage = document.createElement('div');
-      userMessage.className = 'message user-message';
-      userMessage.textContent = message;
-      messagesContainer.appendChild(userMessage);
-      
-      // البحث عن رد مناسب
-      let response = "";
-      for (const [key, value] of Object.entries(chatbotResponses)) {
-        if (message.includes(key)) {
-          response = value[lang];
-          break;
-        }
-      }
-      
-      if (!response) {
-        response = lang === 'ar' ? 
-          "آسف، لم أفهم سؤالك. يمكنك طرح أسئلة عن أوامر مثل gamemode أو tnt." : 
-          "Sorry, I didn't understand your question. You can ask about commands like gamemode or tnt.";
-      }
-      
-      // إضافة رد البوت
+    sendMessageBtn.addEventListener('click', () => {
+      const input = chatbotInput.value.trim();
+      if (!input) return;
+      addChatMessage(input, 'user');
+      chatbotInput.value = '';
       setTimeout(() => {
-        const botMessage = document.createElement('div');
-        botMessage.className = 'message bot-message';
-        botMessage.textContent = response;
-        messagesContainer.appendChild(botMessage);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      }, 500);
-      
-      input.value = '';
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+        const response = getBotResponse(input);
+        addChatMessage(response);
+      }, 1000);
+    });
 
-    // نظام التقييم الجديد
-    function initRatingSystem() {
-      const stars = document.querySelectorAll('#starRating input');
-      const thankYou = document.getElementById("thankYou");
-      const avgRating = document.getElementById("avgRating");
+    chatbotInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendMessageBtn.click();
+    });
 
-      loadAverage();
-
-      stars.forEach(star => {
-        star.addEventListener('change', () => {
-          const rating = parseInt(star.value);
-          saveRating(rating);
-          const lang = document.documentElement.getAttribute('lang');
-          thankYou.textContent = `${translations[lang].thankYou} (${rating} ★)`;
-          loadAverage();
-        });
-      });
-    }
-
-    function saveRating(rating) {
-      let ratings = JSON.parse(localStorage.getItem("pageRatings") || "[]");
-      ratings.push(rating);
-      localStorage.setItem("pageRatings", JSON.stringify(ratings));
-    }
-
-    function loadAverage() {
-      let ratings = JSON.parse(localStorage.getItem("pageRatings") || "[]");
-      const lang = document.documentElement.getAttribute('lang');
-      const thankYou = document.getElementById("thankYou");
-      const avgRating = document.getElementById("avgRating");
-
-      if (ratings.length === 0) {
-        avgRating.textContent = translations[lang].noRating;
-        return;
-      }
-      
-      const sum = ratings.reduce((a, b) => a + b, 0);
-      const average = (sum / ratings.length).toFixed(1);
-      const count = ratings.length;
-      
-      avgRating.textContent = translations[lang].averageRating
-        .replace('{average}', average)
-        .replace('{count}', count);
-    }
-    
+    // تهيئة الأزرار بعد تحميل الصفحة
+    window.addEventListener('load', () => {
+      initButtons();
+      translatePage();
+    });
   </script>
 </body>
 </html>
